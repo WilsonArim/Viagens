@@ -115,7 +115,7 @@ export default async function AgencyPage({ params }: { params: Promise<{ rnavt: 
   const isActive = agency.nifptStatus !== "inactive";
   const name = agency.commercialName ?? agency.legalName;
   const location = [agency.city, agency.district].filter(Boolean).join(", ");
-  const website = agency.nifptWebsite ?? agency.externalLinks.find(l => l.source === "website")?.url;
+  const website = agency.nifptWebsite ?? agency.externalLinks.find((l: { source: string }) => l.source === "website")?.url;
 
   const cardStyle = {
     borderRadius: "14px",
