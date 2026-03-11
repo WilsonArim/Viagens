@@ -74,7 +74,7 @@ export default async function DashboardHomePage() {
         <>
           <h2 style={{ marginBottom: "0.8rem" }}>Atividade Recente</h2>
           <div className="glass-card" style={{ padding: "0" }}>
-            {recentSearches.map((s, i) => (
+            {recentSearches.map((s: { id: string; queryType: string; destination: string; createdAt: Date }, i: number) => (
               <div key={s.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "0.7rem 1rem", borderBottom: i < recentSearches.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
                   <span style={{ fontSize: "0.75rem", padding: "0.15rem 0.4rem", borderRadius: "4px", backgroundColor: s.queryType === "XRAY" ? "#d4a574" : s.queryType === "ITINERARY" ? "#74b0d4" : s.queryType === "RADAR" ? "#d47474" : "#a974d4", color: "#000", fontWeight: 600 }}>
