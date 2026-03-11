@@ -10,6 +10,9 @@ jobs:
   lint-type-test:
     name: Lint, Type Check & Test
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "postgresql://fake:fake@localhost:5432/fake"
+      DIRECT_URL: "postgresql://fake:fake@localhost:5432/fake"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
