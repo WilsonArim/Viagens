@@ -1,0 +1,539 @@
+[
+    {
+        "countryCode": "TN",
+        "countryName": "Tunísia",
+        "regulatoryBody": "Ministério do Turismo da Tunísia",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 7.5,
+                "rcsMax": 8.5,
+                "label": "5★ Renovado Costeiro",
+                "conditions": "Renovado pós-2020, zona costeira (Djerba, Sousse, Hammamet)"
+            },
+            {
+                "officialStars": 5,
+                "rcsMin": 5.0,
+                "rcsMax": 6.5,
+                "label": "5★ Interior/Obsoleto",
+                "conditions": "Interior ou não renovado"
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 5.5,
+                "rcsMax": 7.0
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 4.0,
+                "rcsMax": 5.5
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 3.0,
+                "rcsMax": 4.5
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 1.0,
+                "rcsMax": 3.0
+            }
+        ],
+        "specialDesignations": [],
+        "penalties": [],
+        "requiredLicenses": [],
+        "redFlags": [
+            "Classificação pré-2021 sem revisão"
+        ],
+        "notes": "Período de carência pós-pandemia. Sub-segmentação costeiro vs interior obrigatória."
+    },
+    {
+        "countryCode": "GB",
+        "countryName": "Reino Unido",
+        "regulatoryBody": "VisitBritain / AA",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 8.5,
+                "rcsMax": 10.0
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 7.0,
+                "rcsMax": 8.5
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 5.5,
+                "rcsMax": 7.0
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 4.0,
+                "rcsMax": 5.5
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 2.0,
+                "rcsMax": 4.0
+            }
+        ],
+        "specialDesignations": [
+            {
+                "name": "Red Stars (AA)",
+                "effect": "multiplier",
+                "target": "service",
+                "value": 2.0
+            },
+            {
+                "name": "Superior (HSU)",
+                "effect": "bonus",
+                "target": "rcs_final",
+                "value": 0.5
+            }
+        ],
+        "penalties": [],
+        "requiredLicenses": [],
+        "redFlags": [],
+        "notes": "Forte escrutínio em serviço e alimentação. Red Stars = luxo equiparado a Forbes."
+    },
+    {
+        "countryCode": "FR",
+        "countryName": "França",
+        "regulatoryBody": "Atout France",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 8.0,
+                "rcsMax": 9.5
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 6.5,
+                "rcsMax": 8.0
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 5.0,
+                "rcsMax": 6.5
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 3.5,
+                "rcsMax": 5.0
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 2.0,
+                "rcsMax": 3.5
+            }
+        ],
+        "specialDesignations": [
+            {
+                "name": "Palace",
+                "effect": "override",
+                "target": "hardware",
+                "value": 10.0
+            },
+            {
+                "name": "Palace",
+                "effect": "override",
+                "target": "service",
+                "value": 10.0
+            }
+        ],
+        "penalties": [],
+        "requiredLicenses": [],
+        "redFlags": [],
+        "notes": "Áreas mínimas obrigatórias: 24m² quarto duplo com WC para 5★. Distinção Palace = ultra-luxo."
+    },
+    {
+        "countryCode": "IT",
+        "countryName": "Itália",
+        "regulatoryBody": "Regiões autónomas (21 sistemas)",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 7.5,
+                "rcsMax": 9.5,
+                "label": "5★ / 5★ Deluxe"
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 6.0,
+                "rcsMax": 7.5
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 4.5,
+                "rcsMax": 6.0
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 3.0,
+                "rcsMax": 4.5
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 1.5,
+                "rcsMax": 3.0
+            }
+        ],
+        "specialDesignations": [],
+        "penalties": [
+            {
+                "trigger": "Edifício histórico 3-5★ sem auditoria HVAC/acústica recente",
+                "rcsPenalty": -1.0,
+                "isBlocking": false
+            }
+        ],
+        "requiredLicenses": [],
+        "redFlags": [
+            "Sistema hiper-fragmentado — classificação varia por região"
+        ],
+        "notes": "21 sistemas regionais diferentes. Penalização automática sem auditoria HVAC em edifícios históricos."
+    },
+    {
+        "countryCode": "ES",
+        "countryName": "Espanha",
+        "regulatoryBody": "Comunidades Autónomas",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 7.5,
+                "rcsMax": 9.5
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 6.0,
+                "rcsMax": 7.5
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 4.5,
+                "rcsMax": 6.0
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 3.0,
+                "rcsMax": 4.5
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 1.5,
+                "rcsMax": 3.0
+            }
+        ],
+        "specialDesignations": [],
+        "penalties": [
+            {
+                "trigger": "Edifício histórico 3-5★ sem auditoria HVAC/acústica recente",
+                "rcsPenalty": -1.0,
+                "isBlocking": false
+            }
+        ],
+        "requiredLicenses": [],
+        "redFlags": [
+            "Estrelas de ouro vs prata — variação Catalunha/Andaluzia"
+        ],
+        "notes": "Descentralizado como Itália. Mesma penalização HVAC para edifícios históricos."
+    },
+    {
+        "countryCode": "EG",
+        "countryName": "Egito",
+        "regulatoryBody": "Ministério do Turismo (Decreto 760/2019)",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 7.0,
+                "rcsMax": 9.0
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 5.5,
+                "rcsMax": 7.0
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 4.0,
+                "rcsMax": 5.5
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 2.5,
+                "rcsMax": 4.0
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 1.0,
+                "rcsMax": 2.5
+            }
+        ],
+        "specialDesignations": [
+            {
+                "name": "Green Star Hotel",
+                "effect": "bonus",
+                "target": "location",
+                "value": 1.5
+            }
+        ],
+        "penalties": [
+            {
+                "trigger": "Classificação pré-2022 sem verificação na API estatal",
+                "rcsPenalty": -2.0,
+                "isBlocking": false
+            }
+        ],
+        "requiredLicenses": [],
+        "redFlags": [
+            "Estrelas obsoletas pré-2022",
+            "Infraestrutura estática Mar Vermelho/Cairo"
+        ],
+        "notes": "Validade 4 anos. Mystery Guest obrigatório. Green Star Hotel = bónus sustentabilidade."
+    },
+    {
+        "countryCode": "ID",
+        "countryName": "Indonésia",
+        "regulatoryBody": "Kemenparekraf",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 7.0,
+                "rcsMax": 9.0
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 5.5,
+                "rcsMax": 7.0
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 4.0,
+                "rcsMax": 5.5
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 2.5,
+                "rcsMax": 4.0
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 1.0,
+                "rcsMax": 2.5
+            }
+        ],
+        "specialDesignations": [],
+        "penalties": [
+            {
+                "trigger": "Sem NIB (13 dígitos) em Ubud/Canggu/Seminyak",
+                "rcsPenalty": 0,
+                "isBlocking": true
+            },
+            {
+                "trigger": "Sem licença Pondok Wisata / KBLI 55193",
+                "rcsPenalty": 0,
+                "isBlocking": true
+            },
+            {
+                "trigger": "Sem Certificado SLF",
+                "rcsPenalty": -2.0,
+                "isBlocking": false
+            }
+        ],
+        "requiredLicenses": [
+            {
+                "name": "Nomor Induk Berusaha (NIB)",
+                "code": "NIB-13",
+                "mandatory": true,
+                "validityYears": 5
+            },
+            {
+                "name": "Pondok Wisata",
+                "code": "PW",
+                "mandatory": true,
+                "validityYears": 5
+            },
+            {
+                "name": "KBLI 55193",
+                "code": "KBLI-55193",
+                "mandatory": true,
+                "validityYears": 5
+            },
+            {
+                "name": "Certificado SLF",
+                "code": "SLF",
+                "mandatory": false,
+                "validityYears": 5
+            }
+        ],
+        "redFlags": [
+            "Villa sem NIB",
+            "Designação indevida de Villa",
+            "Sem SLF de segurança"
+        ],
+        "notes": "Prazo limite 31 Mar 2026. Propriedades sem NIB recebem RCS=0 e são ocultadas."
+    },
+    {
+        "countryCode": "IN",
+        "countryName": "Índia",
+        "regulatoryBody": "HRACC",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 7.5,
+                "rcsMax": 9.5,
+                "label": "5★ / 5★ Deluxe"
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 6.0,
+                "rcsMax": 7.5
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 4.5,
+                "rcsMax": 6.0
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 3.0,
+                "rcsMax": 4.5
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 1.5,
+                "rcsMax": 3.0
+            }
+        ],
+        "specialDesignations": [
+            {
+                "name": "Heritage Grand",
+                "effect": "bonus",
+                "target": "rcs_final",
+                "value": 2.0
+            },
+            {
+                "name": "Heritage Classic",
+                "effect": "bonus",
+                "target": "rcs_final",
+                "value": 1.0
+            },
+            {
+                "name": "Heritage Basic",
+                "effect": "bonus",
+                "target": "rcs_final",
+                "value": 0.5
+            }
+        ],
+        "penalties": [],
+        "requiredLicenses": [],
+        "redFlags": [],
+        "notes": "Heritage Grand = autenticidade profunda, mínimo RCS 8.5 garantido."
+    },
+    {
+        "countryCode": "DE",
+        "countryName": "Alemanha",
+        "regulatoryBody": "Hotelstars Union (DEHOGA)",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 8.5,
+                "rcsMax": 10.0,
+                "label": "Luxury (610+ pts HSU)"
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 7.0,
+                "rcsMax": 8.5,
+                "label": "First Class (410+ pts)"
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 5.5,
+                "rcsMax": 7.0,
+                "label": "Comfort (270+ pts)"
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 4.0,
+                "rcsMax": 5.5,
+                "label": "Standard (180+ pts)"
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 2.0,
+                "rcsMax": 4.0,
+                "label": "Tourist (95+ pts)"
+            }
+        ],
+        "specialDesignations": [
+            {
+                "name": "Superior",
+                "effect": "bonus",
+                "target": "rcs_final",
+                "value": 0.5
+            }
+        ],
+        "penalties": [],
+        "requiredLicenses": [],
+        "redFlags": [],
+        "notes": "HSU 2025-2030. Superior = pontos da classe acima mas falha critério obrigatório."
+    },
+    {
+        "countryCode": "PT",
+        "countryName": "Portugal",
+        "regulatoryBody": "Turismo de Portugal",
+        "lastAuditYear": 2026,
+        "maxOfficialStars": 5,
+        "starConversion": [
+            {
+                "officialStars": 5,
+                "rcsMin": 8.0,
+                "rcsMax": 9.5
+            },
+            {
+                "officialStars": 4,
+                "rcsMin": 6.5,
+                "rcsMax": 8.0
+            },
+            {
+                "officialStars": 3,
+                "rcsMin": 5.0,
+                "rcsMax": 6.5
+            },
+            {
+                "officialStars": 2,
+                "rcsMin": 3.5,
+                "rcsMax": 5.0
+            },
+            {
+                "officialStars": 1,
+                "rcsMin": 2.0,
+                "rcsMax": 3.5
+            }
+        ],
+        "specialDesignations": [],
+        "penalties": [],
+        "requiredLicenses": [],
+        "redFlags": [],
+        "notes": "Sistema próprio mas alinhado com padrões europeus."
+    }
+]

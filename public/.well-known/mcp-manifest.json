@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "name": "O Meu Detetive de Viagens",
+  "description": "Plataforma de inteligência para viagens de luxo com análise de hotéis, roteiros culturais e radar em tempo real.",
+  "auth": {
+    "type": "session_inheritance",
+    "requires_login": true,
+    "login_url": "/login"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": false,
+    "prompts": false
+  },
+  "tools_registration": "imperative",
+  "tools": [
+    {
+      "name": "get_user_preferences",
+      "description": "Retorna perfil familiar, orçamento e restrições do utilizador autenticado.",
+      "readOnly": true
+    },
+    {
+      "name": "analyze_hotel",
+      "description": "Executa o Raio-X de um hotel específico com base no Padrão das Caraíbas.",
+      "readOnly": true
+    },
+    {
+      "name": "generate_itinerary",
+      "description": "Gera roteiro anti-massas cruzando destino e perfil familiar.",
+      "readOnly": true
+    },
+    {
+      "name": "get_travel_radar",
+      "description": "Pesquisa alertas em tempo real para o destino com dados da última semana.",
+      "readOnly": true
+    },
+    {
+      "name": "get_trip_history",
+      "description": "Retorna histórico de pesquisas do utilizador.",
+      "readOnly": true
+    }
+  ]
+}

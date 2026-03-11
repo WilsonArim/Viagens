@@ -1,0 +1,296 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum TripQueryType {
+  XRAY
+  ITINERARY
+  RADAR
+  CHAT
+}
+
+model ChatSession {
+  id        String    @id @default(cuid())
+  userId    String
+  messages  Json      @default("[]")
+  summary   String?   // compact summary of older messages, injected as context when truncating
+  deletedAt DateTime?
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  familyProfile FamilyProfile?
+  trips         Trip[]
+  tripSearches  TripSearch[]
+  hotelAnalyses HotelAnalysis[]
+  chatSessions  ChatSession[]
+  agencyChecks  AgencyCheck[]
+  savedAgencies SavedAgency[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model FamilyProfile {
+  id                  String    @id @default(cuid())
+  userId              String    @unique
+  generalBudget       String
+  dietaryRestrictions String[]  @default([])
+  travelPace          String    @default("balanced")
+  notes               String?
+  members             Member[]
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+}
+
+model Member {
+  id        String        @id @default(cuid())
+  familyId  String
+  name      String
+  age       Int
+  hobbies   String[]      @default([])
+  interests String[]      @default([])
+  family    FamilyProfile @relation(fields: [familyId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model Trip {
+  id          String       @id @default(cuid())
+  userId      String
+  name        String
+  destination String?
+  startDate   DateTime?
+  endDate     DateTime?
+  notes       String?
+  deletedAt   DateTime?
+  searches      TripSearch[]
+  polls         Poll[]
+  agencyChecks  AgencyCheck[]
+  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Poll {
+  id         String     @id @default(cuid())
+  tripId     String
+  question   String
+  options    String[]   @default([])
+  shareToken String     @unique @default(cuid())
+  votes      PollVote[]
+  trip       Trip       @relation(fields: [tripId], references: [id], onDelete: Cascade)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+}
+
+model PollVote {
+  id          String   @id @default(cuid())
+  pollId      String
+  voterName   String
+  optionIndex Int
+  poll        Poll     @relation(fields: [pollId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+
+  @@unique([pollId, voterName])
+}
+
+model TripSearch {
+  id            String         @id @default(cuid())
+  userId        String
+  tripId        String?
+  destination   String
+  queryType     TripQueryType
+  queryPayload  Json?
+  results       Json
+  hotelAnalyses HotelAnalysis[]
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trip          Trip?          @relation(fields: [tripId], references: [id], onDelete: SetNull)
+  createdAt     DateTime       @default(now())
+}
+
+model HotelAnalysis {
+  id            String      @id @default(cuid())
+  userId        String
+  tripSearchId  String?
+  hotelName     String
+  destination   String
+  verdict       String
+  abundanceIndex Int
+  redFlags      String[]    @default([])
+  realExperience String
+  rawResponse   String
+  cachedKey     String      @unique
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tripSearch    TripSearch? @relation(fields: [tripSearchId], references: [id], onDelete: SetNull)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  @@index([hotelName, destination])
+}
+
+// ── Registo Oficial de Agências (seed do Excel do Turismo de Portugal) ──
+model Agency {
+  id              String    @id @default(cuid())
+  rnavt           String    @unique           // Nº de registo RNAVT
+  nif             String                       // NIF/NIPC
+  legalName       String                       // Denominação Social
+  commercialName  String?                      // Marcas / Nome Comercial
+  address         String?                      // Morada da sede
+  city            String?                      // Localidade
+  district        String?                      // Distrito
+  postalCode      String?                      // Código Postal
+  phone           String?
+
+  // Cache Google Places (Lazy Loading — 30 dias TTL)
+  googleRating      Float?
+  googleReviewCount Int?
+  googleReviews     Json?                      // Últimas 3 reviews
+  googlePlaceId     String?
+  googleCachedAt    DateTime?
+
+  // Cache Queixas (Lazy Loading — 30 dias TTL)
+  complaintsSummary Json?
+  complaintsCachedAt DateTime?
+
+  // Dados nif.pt — sincronização completa (worker)
+  nifptStatus       String?    // Estado: "active" | "inactive"
+  nifptCae          String?    // CAE primário (ex: "79110" = Agências de Viagens)
+  nifptActivity     String?    // Descrição textual da actividade
+  nifptWebsite      String?    // Website declarado no registo
+  nifptEmail        String?    // Email de contacto
+  nifptPhone        String?    // Telefone (nif.pt, pode diferir do Excel)
+  nifptFax          String?    // Fax
+  nifptNature       String?    // Natureza jurídica (UNI, LDA, SA, ENI...)
+  nifptCapital      String?    // Capital social declarado
+  nifptStartDate    String?    // Data de início de actividade
+  nifptRegion       String?    // Região (ex: "Lisboa")
+  nifptCounty       String?    // Concelho (ex: "Cascais")
+  nifptParish       String?    // Freguesia (ex: "Estoril")
+  nifptRacius       String?    // URL do perfil no Racius.com
+  nifptLastChecked  DateTime?  // Última sincronização
+
+  // Relações
+  externalLinks     AgencyExternalLink[]
+  checks            AgencyCheck[]
+  savedBy           SavedAgency[]
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([nif])
+  @@index([legalName])
+  @@index([commercialName])
+  @@index([nifptLastChecked])
+}
+
+model AgencyExternalLink {
+  id        String   @id @default(cuid())
+  agencyId  String
+  source    String   // "portalDaQueixa" | "trustpilot" | "instagram" | "facebook" | "website"
+  url       String
+  agency    Agency   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([agencyId, source])
+}
+
+model AgencyCheck {
+  id           String    @id @default(cuid())
+  userId       String
+  tripId       String?
+  agencyId     String?   // FK para registo oficial (pode ser null se agência não consta na BD)
+  cacheKey     String    // RNAVT ou nome normalizado — usado para cache lookup
+  input        String    // texto original do utilizador
+  rnavt        String?
+  agencyName   String?
+  verdict      String    // "safe" | "caution" | "danger"
+  verdictText  String    // texto legível: "Podes confiar" | "Atenção" | "Evita"
+  rnavtStatus  String    // "confirmed" | "mismatch" | "notFound" | "unknown"
+  rnavtData    Json?
+  onlineData   Json?
+  complaints   Json?
+  redFlags     String[]  @default([])
+  greenFlags   String[]  @default([])
+  detectiveNote String
+  rawReport    String
+  usedGrok     Boolean   @default(false)
+  shareToken   String?   @unique // gerado on-demand para partilha pública
+  deletedAt    DateTime?
+  createdAt    DateTime  @default(now())
+
+  agency Agency? @relation(fields: [agencyId], references: [id], onDelete: SetNull)
+  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  trip   Trip?   @relation(fields: [tripId], references: [id], onDelete: SetNull)
+
+  @@index([cacheKey])
+  @@index([userId])
+}
+
+model SavedAgency {
+  id        String   @id @default(cuid())
+  userId    String
+  agencyId  String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  agency    Agency   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([userId, agencyId])
+  @@index([userId])
+}
+
+model AllowedUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
+
